@@ -14,16 +14,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.text.TextStyle
-import cz.johnyapps.eddiehostopky.common.util.digits
 import cz.johnyapps.eddiehostopky.theme.ui.AppTheme
 import cz.johnyapps.eddiehostopky.theme.ui.AppThemedPreview
 import kotlinx.datetime.Clock
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import kotlin.math.ceil
 
 @Composable
-fun Stopwatch(
+fun Countdown(
+    state: CountdownState,
     modifier: Modifier = Modifier,
-    state: StopwatchState = rememberStopwatchState(),
     textStyle: TextStyle = LocalTextStyle.current,
 ) {
     Box(
@@ -45,20 +45,30 @@ fun Stopwatch(
 
 @Preview
 @Composable
-private fun StopwatchPreview() {
+private fun CountdownPreview() {
     AppThemedPreview {
-        Stopwatch()
+        val state = rememberCountdownState(
+            fromValueMs = 20 * 60_000L
+        )
+
+        Countdown(
+            state = state,
+        )
     }
 }
 
 @Composable
-fun rememberStopwatchState(
-    initialValueMs: Long = 0
-): StopwatchState = remember(initialValueMs) {
-    LiveStopwatchState(initialValueMs)
+fun rememberCountdownState(
+    fromValueMs: Long,
+    initialProgressMs: Long = 0
+): CountdownState = remember(initialProgressMs, fromValueMs) {
+    LiveCountdownState(
+        initialProgressMs = initialProgressMs,
+        fromValueMs = fromValueMs
+    )
 }
 
-interface StopwatchState {
+interface CountdownState {
 
     val text: String
     val running: Boolean
@@ -71,31 +81,31 @@ interface StopwatchState {
     fun reset()
 }
 
-class LiveStopwatchState(
-    initialValueMs: Long,
-) : StopwatchState {
+class LiveCountdownState(
+    initialProgressMs: Long,
+    private val fromValueMs: Long,
+) : CountdownState {
 
-    override var progressMs by mutableLongStateOf(initialValueMs)
-
+    override var progressMs by mutableLongStateOf(initialProgressMs)
     private var startTime: Long = 0L
 
     private var _running by mutableStateOf(false)
     override val running: Boolean get() = _running
 
-    private var _text by mutableStateOf(progressMs.toStopwatchText())
+    private var _text by mutableStateOf(progressMs.toCountdownText(fromValueMs))
     override val text: String get() = _text
 
     override fun invalidate() {
         if (running) {
-            progressMs = Clock.System.now().toEpochMilliseconds() - startTime
+            progressMs = (Clock.System.now().toEpochMilliseconds() - startTime)
+                .coerceAtMost(fromValueMs)
         }
 
-        _text = progressMs.toStopwatchText()
+        _text = progressMs.toCountdownText(fromValueMs)
     }
 
     override fun toggleRunning() {
         if (running) {
-            progressMs = Clock.System.now().toEpochMilliseconds() - startTime
             _running = false
         } else {
             startTime = Clock.System.now().toEpochMilliseconds() - progressMs
@@ -111,24 +121,11 @@ class LiveStopwatchState(
     }
 }
 
-fun StopwatchState.toggleBy(other: StopwatchState) {
-    if (running != other.running) {
-        if ((other.running && progressMs > 0) || !other.running) {
-            toggleRunning()
-        }
-    }
-}
+fun Long.toCountdownText(fromValueMs: Long): String {
+    val remainingMs = fromValueMs - this
 
-fun Long.toStopwatchText(): String {
-    val minutes = this / 60_000
-    val seconds = this / 1_000 % 60
-    val milliseconds = this % 1_000
+    val seconds = ceil(remainingMs / 1000f)
+        .toInt()
 
-    val stringMilliseconds = when {
-        milliseconds < 10 -> "0$milliseconds"
-        milliseconds < 100 -> "$milliseconds"
-        else -> "$milliseconds".take(2)
-    }
-
-    return "${minutes.digits(2)}:${seconds.digits(2)}:$stringMilliseconds"
+    return "${seconds}s"
 }

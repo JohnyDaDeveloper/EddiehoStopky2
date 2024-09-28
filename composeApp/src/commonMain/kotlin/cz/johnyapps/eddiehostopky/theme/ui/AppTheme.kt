@@ -1,6 +1,7 @@
 package cz.johnyapps.eddiehostopky.theme.ui
 
 import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -15,6 +16,10 @@ object AppTheme {
     val spacing: ThemeSpacing
         @Composable
         get() = LocalThemeSpacing.current
+
+    val typography: ThemeTypography
+        @Composable
+        get() = LocalThemeTypography.current
 }
 
 @Composable
@@ -23,9 +28,12 @@ fun AppTheme(
 ) {
     CompositionLocalProvider(
         LocalThemeColors provides AppTheme.color,
-        LocalContentColor provides AppTheme.color.surface,
+        LocalContentColor provides AppTheme.color.onSurface,
+        LocalTextStyle provides AppTheme.typography.normal,
     ) {
-        content()
+        Surface(color = AppTheme.color.surface) {
+            content()
+        }
     }
 }
 
