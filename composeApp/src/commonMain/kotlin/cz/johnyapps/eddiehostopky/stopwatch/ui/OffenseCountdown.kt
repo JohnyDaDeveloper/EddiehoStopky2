@@ -20,17 +20,32 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun OffenseCountdown(
     state: CountdownState,
+    switchButtons: Boolean,
+    showPlayPauseButton: Boolean,
     modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier.fillMaxWidth()
             .height(IntrinsicSize.Min)
     ) {
-        RestartButton(
-            modifier = Modifier
-                .fillMaxHeight(),
-            onClick = { state.reset() }
-        )
+        when {
+            switchButtons -> {
+                RestartButton(
+                    modifier = Modifier
+                        .fillMaxHeight(),
+                    onClick = { state.reset() }
+                )
+            }
+
+            showPlayPauseButton -> {
+                PlayPauseButton(
+                    modifier = Modifier
+                        .fillMaxHeight(),
+                    running = state.running,
+                    onClick = { state.toggleRunning() }
+                )
+            }
+        }
 
         Column(
             modifier = Modifier.weight(1f)
@@ -47,6 +62,25 @@ fun OffenseCountdown(
                 state = state,
                 textStyle = AppTheme.typography.large,
             )
+        }
+
+        when {
+            !switchButtons -> {
+                RestartButton(
+                    modifier = Modifier
+                        .fillMaxHeight(),
+                    onClick = { state.reset() }
+                )
+            }
+
+            showPlayPauseButton -> {
+                PlayPauseButton(
+                    modifier = Modifier
+                        .fillMaxHeight(),
+                    running = state.running,
+                    onClick = { state.toggleRunning() }
+                )
+            }
         }
     }
 }

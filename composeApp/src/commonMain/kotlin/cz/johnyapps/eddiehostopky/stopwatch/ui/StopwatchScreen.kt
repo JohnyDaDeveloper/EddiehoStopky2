@@ -44,7 +44,11 @@ private fun StopwatchScreenContents(
 
         HorizontalDivider()
 
-        OffenseCountdown(state = uiState.offenseCountdownState)
+        OffenseCountdown(
+            state = uiState.offenseCountdownState,
+            switchButtons = uiState.switchOffenseCountdownButtons,
+            showPlayPauseButton = uiState.showOffenseCountdownPlayPauseButton,
+        )
 
         HorizontalDivider()
 
