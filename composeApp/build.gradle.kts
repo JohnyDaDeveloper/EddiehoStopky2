@@ -11,6 +11,8 @@ plugins {
     alias(libs.plugins.compose)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.detekt)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
 }
 
 kotlin {
@@ -57,11 +59,16 @@ kotlin {
             implementation(libs.koin.core)
 
             implementation(libs.kotlinx.datetime)
+
+            implementation(libs.room.runtime)
         }
     }
 
     dependencies {
         detektPlugins(libs.detekt.formatting)
+        kspAndroid(libs.room.compiler)
+        kspIosX64(libs.room.compiler)
+        kspIosArm64(libs.room.compiler)
     }
 }
 
@@ -107,6 +114,10 @@ android {
     }
 }
 
+room {
+    schemaDirectory("$projectDir/schemas")
+}
+
 detekt {
     buildUponDefaultConfig = true
     autoCorrect = true
@@ -124,3 +135,12 @@ tasks.withType<DetektCreateBaselineTask>().configureEach {
 
 internal fun DependencyHandler.detektPlugins(dependencyNotation: Any): Dependency? =
     add("detektPlugins", dependencyNotation)
+
+internal fun DependencyHandler.kspAndroid(dependencyNotation: Any): Dependency? =
+    add("kspAndroid", dependencyNotation)
+
+internal fun DependencyHandler.kspIosX64(dependencyNotation: Any): Dependency? =
+    add("kspIosX64", dependencyNotation)
+
+internal fun DependencyHandler.kspIosArm64(dependencyNotation: Any): Dependency? =
+    add("kspIosArm64", dependencyNotation)
