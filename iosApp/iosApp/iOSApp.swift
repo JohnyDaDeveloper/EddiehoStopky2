@@ -5,7 +5,9 @@ import ComposeApp
 struct iOSApp: App {
     
     init() {
-        KoinHelperKt.doInitKoin()
+        KoinHelperKt.doInitKoin(
+            createVibrationManager: { IosVibrationManager() }
+        )
     }
     
     var body: some Scene {

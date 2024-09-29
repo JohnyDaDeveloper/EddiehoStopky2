@@ -1,4 +1,4 @@
-package cz.johnyapps.eddiehostopky.app
+package cz.johnyapps.eddiehostopky.app.ui
 
 import androidx.compose.runtime.Composable
 import cz.johnyapps.eddiehostopky.stopwatch.ui.StopwatchScreen

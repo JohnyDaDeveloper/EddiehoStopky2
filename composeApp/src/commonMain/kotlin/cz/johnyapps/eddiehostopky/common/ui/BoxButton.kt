@@ -24,10 +24,15 @@ fun BoxButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val vibrationManager = rememberVibrationManager()
+
     Box(
         modifier = modifier
             .background(color)
-            .clickable { onClick() }
+            .clickable {
+                vibrationManager.click()
+                onClick()
+            }
             .padding(AppTheme.spacing.normal),
         contentAlignment = Alignment.Center,
     ) {

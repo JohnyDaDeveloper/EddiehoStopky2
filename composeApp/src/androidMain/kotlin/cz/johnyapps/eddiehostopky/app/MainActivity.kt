@@ -8,6 +8,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import cz.johnyapps.eddiehostopky.app.di.appModule
+import cz.johnyapps.eddiehostopky.app.ui.App
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 
 class MainActivity : ComponentActivity() {
@@ -21,6 +24,8 @@ class MainActivity : ComponentActivity() {
         )
 
         startKoin {
+            androidLogger()
+            androidContext(this@MainActivity)
             modules(appModule)
         }
 
