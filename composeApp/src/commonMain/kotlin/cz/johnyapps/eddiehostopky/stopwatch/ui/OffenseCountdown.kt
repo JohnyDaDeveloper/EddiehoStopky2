@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import cz.johnyapps.eddiehostopky.stopwatch.presentation.CountdownState
 import cz.johnyapps.eddiehostopky.theme.ui.AppTheme
 import eddiehostopky.composeapp.generated.resources.Res
 import eddiehostopky.composeapp.generated.resources.stopwatch_offense

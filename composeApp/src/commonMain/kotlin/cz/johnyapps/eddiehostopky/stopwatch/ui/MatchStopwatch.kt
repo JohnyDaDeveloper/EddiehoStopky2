@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import cz.johnyapps.eddiehostopky.common.ui.BoxButton
+import cz.johnyapps.eddiehostopky.stopwatch.presentation.StopwatchState
 import cz.johnyapps.eddiehostopky.theme.ui.AppTheme
 import eddiehostopky.composeapp.generated.resources.Res
 import eddiehostopky.composeapp.generated.resources.stopwatch_offense
