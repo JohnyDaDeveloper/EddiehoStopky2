@@ -3,4 +3,6 @@
     <string name="stopwatch_match">Zápas</string>
     <string name="stopwatch_offense">Útok</string>
     <string name="stopwatch_penalty">Trest %1$d</string>
+
+    <string name="settings_title">Nastavení</string>
 </resources>
