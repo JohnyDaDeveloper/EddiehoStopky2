@@ -17,5 +17,5 @@ interface SettingsDao {
     suspend fun getSettings(): SettingsEntity?
 
     @Query("SELECT * FROM settings LIMIT 1")
-    fun getSettingsFlow(): Flow<SettingsEntity>
+    fun getSettingsFlow(): Flow<SettingsEntity?>
 }

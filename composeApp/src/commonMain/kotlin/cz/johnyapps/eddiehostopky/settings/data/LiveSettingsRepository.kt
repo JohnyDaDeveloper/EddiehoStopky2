@@ -27,7 +27,10 @@ class LiveSettingsRepository(
             emit(getSettings())
             emitAll(
                 dao.getSettingsFlow()
-                    .map { it.toDomainModel() }
+                    .map { entity ->
+                        entity?.toDomainModel()
+                            ?: createDefaultSettings()
+                    }
             )
         }
     }
