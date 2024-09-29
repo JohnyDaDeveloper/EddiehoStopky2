@@ -1,14 +1,18 @@
 package cz.johnyapps.eddiehostopky.settings.ui
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cz.johnyapps.eddiehostopky.common.di.koinViewModel
 import cz.johnyapps.eddiehostopky.settings.presentation.SettingsViewModel
 import cz.johnyapps.eddiehostopky.settings.presentation.model.SettingsUiState
+import cz.johnyapps.eddiehostopky.theme.ui.AppTheme
 import eddiehostopky.composeapp.generated.resources.Res
 import eddiehostopky.composeapp.generated.resources.settings_alert_before_offense_end_seconds
 import eddiehostopky.composeapp.generated.resources.settings_offense_countdown_controlled_by_match
@@ -43,7 +47,14 @@ private fun SettingsScreenContent(
 ) {
     when (uiState) {
         is SettingsUiState.Loading -> {
-            // TODO
+            Box(
+                modifier = modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center,
+            ) {
+                CircularProgressIndicator(
+                    color = AppTheme.color.primary
+                )
+            }
         }
 
         is SettingsUiState.Ready -> {

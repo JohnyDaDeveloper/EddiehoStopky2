@@ -1,0 +1,55 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "3b2ddf4e2a392443a3ab94f9be4f0884",
+    "entities": [
+      {
+        "tableName": "settings",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `pauseAllWhenMatchIsPaused` INTEGER NOT NULL, `offenseCountdownControlledByMatch` INTEGER NOT NULL, `restartOffenseCountdownButtonAtLeft` INTEGER NOT NULL, `alertBeforeOffenseEndSeconds` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pauseAllWhenMatchIsPaused",
+            "columnName": "pauseAllWhenMatchIsPaused",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "offenseCountdownControlledByMatch",
+            "columnName": "offenseCountdownControlledByMatch",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "restartOffenseCountdownButtonAtLeft",
+            "columnName": "restartOffenseCountdownButtonAtLeft",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "alertBeforeOffenseEndSeconds",
+            "columnName": "alertBeforeOffenseEndSeconds",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3b2ddf4e2a392443a3ab94f9be4f0884')"
+    ]
+  }
+}

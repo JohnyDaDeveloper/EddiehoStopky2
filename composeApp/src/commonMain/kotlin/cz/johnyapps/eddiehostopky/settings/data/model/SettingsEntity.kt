@@ -1,24 +1,20 @@
-package cz.johnyapps.eddiehostopky.settings.presentation.model
+package cz.johnyapps.eddiehostopky.settings.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import cz.johnyapps.eddiehostopky.settings.domain.model.Settings
 
-sealed interface SettingsUiState {
-    data object Loading : SettingsUiState
+@Entity(tableName = "settings")
+data class SettingsEntity(
+    @PrimaryKey val id: Long,
+    val pauseAllWhenMatchIsPaused: Boolean,
+    val offenseCountdownControlledByMatch: Boolean,
+    val restartOffenseCountdownButtonAtLeft: Boolean,
+    val alertBeforeOffenseEndSeconds: Int,
+)
 
-    data class Ready(
-        val pauseAllWhenMatchIsPaused: Boolean,
-        val offenseCountdownControlledByMatch: Boolean,
-        val restartOffenseCountdownButtonAtLeft: Boolean,
-        val alertBeforeOffenseEndSeconds: Int,
-    ) : SettingsUiState
-
-    companion object {
-        fun initial(): SettingsUiState = Loading
-    }
-}
-
-fun Settings.toSettingsUiState(): SettingsUiState {
-    return SettingsUiState.Ready(
+fun SettingsEntity.toDomainModel(): Settings {
+    return Settings(
         pauseAllWhenMatchIsPaused = pauseAllWhenMatchIsPaused,
         offenseCountdownControlledByMatch = offenseCountdownControlledByMatch,
         restartOffenseCountdownButtonAtLeft = restartOffenseCountdownButtonAtLeft,
@@ -26,8 +22,9 @@ fun Settings.toSettingsUiState(): SettingsUiState {
     )
 }
 
-fun SettingsUiState.Ready.toDomainModel(): Settings {
-    return Settings(
+fun Settings.toEntity(): SettingsEntity {
+    return SettingsEntity(
+        id = 0,
         pauseAllWhenMatchIsPaused = pauseAllWhenMatchIsPaused,
         offenseCountdownControlledByMatch = offenseCountdownControlledByMatch,
         restartOffenseCountdownButtonAtLeft = restartOffenseCountdownButtonAtLeft,
