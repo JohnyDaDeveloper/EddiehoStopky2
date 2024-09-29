@@ -8,14 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
+import cz.johnyapps.eddiehostopky.common.di.koinViewModel
 import cz.johnyapps.eddiehostopky.stopwatch.presentation.StopwatchViewModel
 import cz.johnyapps.eddiehostopky.stopwatch.presentation.model.StopwatchUiState
 
 @Composable
 fun StopwatchScreen(
     modifier: Modifier = Modifier,
-    viewModel: StopwatchViewModel = viewModel { StopwatchViewModel() }
+    viewModel: StopwatchViewModel = koinViewModel(::StopwatchViewModel)
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 

@@ -1,5 +1,6 @@
 package cz.johnyapps.eddiehostopky.theme.ui
 
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Surface
@@ -13,13 +14,17 @@ object AppTheme {
         @Composable
         get() = LocalThemeColors.current
 
-    val spacing: ThemeSpacing
+    val spacing: ThemeSpacings
         @Composable
-        get() = LocalThemeSpacing.current
+        get() = LocalThemeSpacings.current
 
     val typography: ThemeTypography
         @Composable
         get() = LocalThemeTypography.current
+
+    val shapes: ThemeShapes
+        @Composable
+        get() = LocalThemeShapes.current
 }
 
 @Composable
@@ -51,3 +56,19 @@ fun AppThemedPreview(
         }
     }
 }
+
+@Composable
+fun AppTheme.textButtonColors() = ButtonColors(
+    containerColor = color.surface,
+    contentColor = color.primary,
+    disabledContainerColor = color.primary,
+    disabledContentColor = color.primaryDisabled,
+)
+
+@Composable
+fun AppTheme.buttonColors() = ButtonColors(
+    containerColor = color.primary,
+    contentColor = color.onPrimary,
+    disabledContainerColor = color.primaryDisabled,
+    disabledContentColor = color.onPrimaryDisabled,
+)

@@ -6,7 +6,8 @@ struct iOSApp: App {
     
     init() {
         KoinHelperKt.doInitKoin(
-            createVibrationManager: { IosVibrationManager() }
+            createVibrationManager: { IosVibrationManager() },
+            createLogWriter: { IosLogWriter() }
         )
     }
     

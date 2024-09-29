@@ -8,6 +8,8 @@ import androidx.compose.ui.graphics.Color
 val LightColors = ThemeColors(
     primary = Color(0xFF1D36BD),
     onPrimary = Color(0xFFFFFFFF),
+    primaryDisabled = Color(0xFF787878),
+    onPrimaryDisabled = Color(0xFFFFFFFF),
     secondary = Color(0xFF950E0E),
     onSecondary = Color(0xFFFFFFFF),
     surface = Color(0xFFFFFFFF),
@@ -18,6 +20,8 @@ val LightColors = ThemeColors(
 data class ThemeColors(
     val primary: Color,
     val onPrimary: Color,
+    val primaryDisabled: Color,
+    val onPrimaryDisabled: Color,
     val secondary: Color,
     val onSecondary: Color,
     val surface: Color,
