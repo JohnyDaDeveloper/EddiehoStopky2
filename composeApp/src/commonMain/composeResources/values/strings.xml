@@ -14,4 +14,5 @@
 
     <string name="save">Uložit</string>
     <string name="cancel">Zrušit</string>
+    <string name="loading">Načítání...</string>
 </resources>

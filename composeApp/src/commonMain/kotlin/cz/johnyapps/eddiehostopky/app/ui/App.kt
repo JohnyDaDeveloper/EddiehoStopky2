@@ -24,7 +24,9 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
-fun App() {
+fun App(
+    onStartDestinationReady: () -> Unit,
+) {
     val navController = rememberNavController()
     val currentEntry by navController.currentBackStackEntryAsState()
     val currentDestination = Destination.byRoute(currentEntry?.destination?.route)
@@ -46,7 +48,7 @@ fun App() {
                 startDestination = Destination.start.route
             ) {
                 destination(Destination.Stopwatch) {
-                    StopwatchScreen()
+                    StopwatchScreen(onReady = onStartDestinationReady)
                 }
 
                 destination(Destination.Settings) {

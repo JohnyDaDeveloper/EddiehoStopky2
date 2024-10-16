@@ -4,4 +4,8 @@ import androidx.compose.ui.window.ComposeUIViewController
 import cz.johnyapps.eddiehostopky.app.ui.App
 
 @Suppress("FunctionNaming", "unused", "FunctionName")
-fun MainViewController() = ComposeUIViewController { App() }
+fun MainViewController() = ComposeUIViewController {
+    App(
+        onStartDestinationReady = {}
+    )
+}
