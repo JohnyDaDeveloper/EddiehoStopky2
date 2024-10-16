@@ -3,6 +3,8 @@ package cz.johnyapps.eddiehostopky.settings.system
 import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import cz.johnyapps.eddiehostopky.database.system.AppDatabase
+import cz.johnyapps.eddiehostopky.database.system.DatabaseBuilderFactory
 
 class AndroidDatabaseBuilderFactory(
     private val context: Context,

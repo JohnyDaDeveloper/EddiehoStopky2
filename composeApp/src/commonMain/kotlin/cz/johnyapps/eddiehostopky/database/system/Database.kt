@@ -1,4 +1,4 @@
-package cz.johnyapps.eddiehostopky.settings.system
+package cz.johnyapps.eddiehostopky.database.system
 
 import androidx.room.ConstructedBy
 import androidx.room.Database
