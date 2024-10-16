@@ -22,12 +22,14 @@ import cz.johnyapps.eddiehostopky.theme.ui.textButtonColors
 import eddiehostopky.composeapp.generated.resources.Res
 import eddiehostopky.composeapp.generated.resources.cancel
 import eddiehostopky.composeapp.generated.resources.save
+import eddiehostopky.composeapp.generated.resources.settings_no
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun IntSettingItem(
     title: String,
     value: Int,
+    maxValue: Int,
     onSaveValue: (Int) -> Unit,
     modifier: Modifier = Modifier,
     valueUnit: String? = null,
@@ -38,6 +40,7 @@ fun IntSettingItem(
         IntValueDialog(
             title = title,
             initialValue = value,
+            maxValue = maxValue,
             valueUnit = valueUnit,
             onDismissRequest = { dialogOpen = false },
             onSaveValue = onSaveValue,
@@ -49,7 +52,7 @@ fun IntSettingItem(
         title = title,
         onClick = { dialogOpen = true },
     ) {
-        Text(text = "$value")
+        Text(text = value.valueToText(valueUnit))
     }
 }
 
@@ -57,6 +60,7 @@ fun IntSettingItem(
 private fun IntValueDialog(
     title: String,
     initialValue: Int,
+    maxValue: Int,
     valueUnit: String?,
     onDismissRequest: () -> Unit,
     onSaveValue: (Int) -> Unit,
@@ -99,6 +103,7 @@ private fun IntValueDialog(
     ) {
         IntValueDialogContent(
             value = currentValue,
+            maxValue = maxValue,
             onValueChange = { currentValue = it },
             valueUnit = valueUnit,
         )
@@ -108,6 +113,7 @@ private fun IntValueDialog(
 @Composable
 private fun IntValueDialogContent(
     value: Int,
+    maxValue: Int,
     onValueChange: (Int) -> Unit,
     valueUnit: String?,
     modifier: Modifier = Modifier,
@@ -121,6 +127,7 @@ private fun IntValueDialogContent(
             onClick = {
                 val newValue = (value - 1)
                     .coerceAtLeast(0)
+                    .coerceAtMost(maxValue)
                 onValueChange(newValue)
             },
             colors = AppTheme.textButtonColors(),
@@ -131,16 +138,10 @@ private fun IntValueDialogContent(
             )
         }
 
-        val currentText = if (valueUnit != null) {
-            "$value$valueUnit"
-        } else {
-            "$value"
-        }
-
         Text(
             modifier = Modifier
                 .weight(1f),
-            text = currentText,
+            text = value.valueToText(valueUnit),
             textAlign = TextAlign.Center,
             style = AppTheme.typography.large
         )
@@ -157,5 +158,14 @@ private fun IntValueDialogContent(
                 style = AppTheme.typography.large
             )
         }
+    }
+}
+
+@Composable
+private fun Int.valueToText(unit: String?): String {
+    return when {
+        this == 0 -> stringResource(Res.string.settings_no)
+        unit != null -> "$this$unit"
+        else -> "$this"
     }
 }

@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cz.johnyapps.eddiehostopky.common.di.koinViewModel
+import cz.johnyapps.eddiehostopky.common.util.Constants
 import cz.johnyapps.eddiehostopky.settings.presentation.SettingsViewModel
 import cz.johnyapps.eddiehostopky.settings.presentation.model.SettingsUiState
 import cz.johnyapps.eddiehostopky.theme.ui.AppTheme
@@ -82,7 +83,9 @@ private fun SettingsScreenContent(
                 IntSettingItem(
                     title = stringResource(Res.string.settings_alert_before_offense_end_seconds),
                     value = uiState.alertBeforeOffenseEndSeconds,
+                    maxValue = Constants.OFFENSE_DURATION_SECONDS,
                     onSaveValue = onAlertBeforeOffenseEndSecondsChange,
+                    valueUnit = "s"
                 )
             }
         }

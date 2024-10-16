@@ -4,6 +4,7 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cz.johnyapps.eddiehostopky.common.ui.VibrationManager
+import cz.johnyapps.eddiehostopky.common.util.Constants
 import cz.johnyapps.eddiehostopky.common.util.Logger
 import cz.johnyapps.eddiehostopky.settings.domain.GetSettingsFlowUseCase
 import cz.johnyapps.eddiehostopky.stopwatch.domain.CreateAlertBeforeOffenseEndFlowUseCase
@@ -104,6 +105,6 @@ class StopwatchViewModel(
 
     companion object {
         private const val TAG = "StopwatchViewModel"
-        const val OFFENSE_COUNTDOWN_FROM_MS = 30_000L
+        const val OFFENSE_COUNTDOWN_FROM_MS = Constants.OFFENSE_DURATION_SECONDS * 1_000L
     }
 }
