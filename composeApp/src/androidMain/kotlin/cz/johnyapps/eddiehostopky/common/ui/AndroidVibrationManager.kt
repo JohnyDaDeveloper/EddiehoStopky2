@@ -21,20 +21,29 @@ class AndroidVibrationManager(
     }
 
     override fun click() {
+        vibrate(CLICK_DURATION_MS)
+    }
+
+    override fun alert() {
+        vibrate(ALERT_DURATION_MS)
+    }
+
+    private fun vibrate(durationMs: Long) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val effect = VibrationEffect.createOneShot(
-                CLICK_DURATION_MS,
+                durationMs,
                 VibrationEffect.DEFAULT_AMPLITUDE,
             )
 
             vibrator.vibrate(effect)
         } else {
             @Suppress("DEPRECATION")
-            vibrator.vibrate(CLICK_DURATION_MS)
+            vibrator.vibrate(durationMs)
         }
     }
 
     companion object {
         private const val CLICK_DURATION_MS = 100L
+        private const val ALERT_DURATION_MS = 1_000L
     }
 }

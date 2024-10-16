@@ -7,6 +7,8 @@ import org.koin.mp.KoinPlatform
 interface VibrationManager {
 
     fun click()
+
+    fun alert()
 }
 
 @Composable

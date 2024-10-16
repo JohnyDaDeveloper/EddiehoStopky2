@@ -3,16 +3,21 @@ package cz.johnyapps.eddiehostopky.stopwatch.presentation
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cz.johnyapps.eddiehostopky.common.ui.VibrationManager
 import cz.johnyapps.eddiehostopky.settings.domain.GetSettingsFlowUseCase
+import cz.johnyapps.eddiehostopky.stopwatch.domain.CreateAlertBeforeOffenseEndFlowUseCase
 import cz.johnyapps.eddiehostopky.stopwatch.presentation.model.StopwatchUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class StopwatchViewModel(
     private val getSettingsFlowUseCase: GetSettingsFlowUseCase,
+    private val createAlertBeforeOffenseEndFlowUseCase: CreateAlertBeforeOffenseEndFlowUseCase,
+    private val vibrationManager: VibrationManager,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(StopwatchUiState.initial())
@@ -21,6 +26,7 @@ class StopwatchViewModel(
     init {
         collectMatchState()
         collectSettings()
+        collectOffenseStateForAlert()
     }
 
     fun onResetMatchClick() {
@@ -34,10 +40,24 @@ class StopwatchViewModel(
         _uiState.value = _uiState.value.transform()
     }
 
+    private fun collectOffenseStateForAlert() {
+        val currentState = uiState.value
+
+        viewModelScope.launch {
+            val offenseRemainingMsFlow = snapshotFlow { currentState.offenseCountdownState.progressMs }
+                .map { OFFENSE_COUNTDOWN_FROM_MS - it }
+
+            createAlertBeforeOffenseEndFlowUseCase(offenseRemainingMsFlow)
+                .collect {
+                    vibrationManager.alert()
+                }
+        }
+    }
+
     private fun collectMatchState() {
         viewModelScope.launch {
             uiState.collectLatest { state ->
-                collectMatchRunning(state)
+                synchronizeGameStates(state)
             }
         }
     }
@@ -55,7 +75,7 @@ class StopwatchViewModel(
         }
     }
 
-    private suspend fun collectMatchRunning(
+    private suspend fun synchronizeGameStates(
         uiState: StopwatchUiState,
     ) {
         snapshotFlow { uiState.matchStopwatchState.running }
