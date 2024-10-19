@@ -18,7 +18,7 @@ import eddiehostopky.composeapp.generated.resources.Res
 import eddiehostopky.composeapp.generated.resources.settings_alert_before_offense_end_seconds
 import eddiehostopky.composeapp.generated.resources.settings_offense_countdown_controlled_by_match
 import eddiehostopky.composeapp.generated.resources.settings_pause_all_when_match_is_paused
-import eddiehostopky.composeapp.generated.resources.settings_restart_offense_countdown_button_at_left
+import eddiehostopky.composeapp.generated.resources.settings_switch_buttons
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -32,7 +32,7 @@ fun SettingsScreen(
         uiState = uiState,
         onPauseAllWhenMatchIsPausedClicked = viewModel::onPauseAllWhenMatchIsPausedClicked,
         onOffenseCountdownControlledByMatchChange = viewModel::onOffenseCountdownControlledByMatchChange,
-        onRestartOffenseCountdownButtonAtLeftChange = viewModel::onRestartOffenseCountdownButtonAtLeftChange,
+        onSwitchButtonsClick = viewModel::onSwitchButtonsClick,
         onAlertBeforeOffenseEndSecondsChange = viewModel::onAlertBeforeOffenseEndSecondsChange,
     )
 }
@@ -42,7 +42,7 @@ private fun SettingsScreenContent(
     uiState: SettingsUiState,
     onPauseAllWhenMatchIsPausedClicked: () -> Unit,
     onOffenseCountdownControlledByMatchChange: () -> Unit,
-    onRestartOffenseCountdownButtonAtLeftChange: () -> Unit,
+    onSwitchButtonsClick: () -> Unit,
     onAlertBeforeOffenseEndSecondsChange: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -75,9 +75,9 @@ private fun SettingsScreenContent(
                 )
 
                 BooleanSettingItem(
-                    value = uiState.restartOffenseCountdownButtonAtLeft,
-                    title = stringResource(Res.string.settings_restart_offense_countdown_button_at_left),
-                    onClick = onRestartOffenseCountdownButtonAtLeftChange,
+                    value = uiState.switchButtons,
+                    title = stringResource(Res.string.settings_switch_buttons),
+                    onClick = onSwitchButtonsClick,
                 )
 
                 IntSettingItem(

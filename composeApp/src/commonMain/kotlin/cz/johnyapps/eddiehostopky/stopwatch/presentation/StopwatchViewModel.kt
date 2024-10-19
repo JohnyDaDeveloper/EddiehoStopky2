@@ -71,9 +71,24 @@ class StopwatchViewModel(
 
     private fun collectSettings() {
         viewModelScope.launch {
+            // TODO: Re-think this process
+
+            val initialSettings = getSettingsFlowUseCase().first()
+            _uiState.value = StopwatchUiState.firstReady(
+                switchButtons = initialSettings.switchButtons,
+                showOffenseCountdownPlayPauseButton = !initialSettings.offenseCountdownControlledByMatch
+            )
+
             getSettingsFlowUseCase().collect { settings ->
-                _uiState.value = StopwatchUiState.firstReady(
-                    switchOffenseCountdownButtons = settings.restartOffenseCountdownButtonAtLeft,
+                val uiState = _uiState.value
+
+                if (uiState !is StopwatchUiState.Ready) {
+                    Logger.warn(TAG, "collectSettings: Expected ready state, but was: $uiState")
+                    return@collect
+                }
+
+                _uiState.value = uiState.copy(
+                    switchButtons = settings.switchButtons,
                     showOffenseCountdownPlayPauseButton = !settings.offenseCountdownControlledByMatch
                 )
             }
@@ -86,19 +101,20 @@ class StopwatchViewModel(
         snapshotFlow { uiState.matchStopwatchState.running }
             .collect { matchRunning ->
                 val currentSettings = getSettingsFlowUseCase().first()
-                val shouldUnpause = currentSettings.pauseAllWhenMatchIsPaused || matchRunning
+                val matchStopwatchState = uiState.matchStopwatchState
 
                 if (
-                    matchRunning != uiState.offenseCountdownState.running &&
-                    currentSettings.offenseCountdownControlledByMatch &&
-                    shouldUnpause
+                    currentSettings.pauseAllWhenMatchIsPaused ||
+                    currentSettings.offenseCountdownControlledByMatch
                 ) {
-                    uiState.offenseCountdownState.toggleRunning()
+                    if (matchRunning != uiState.offenseCountdownState.running) {
+                        uiState.offenseCountdownState.toggleRunning()
+                    }
                 }
 
-                if (shouldUnpause) {
-                    uiState.penalty1StopwatchState.toggleBy(uiState.matchStopwatchState)
-                    uiState.penalty2StopwatchState.toggleBy(uiState.matchStopwatchState)
+                if (currentSettings.pauseAllWhenMatchIsPaused) {
+                    uiState.penalty1StopwatchState.toggleBy(matchStopwatchState)
+                    uiState.penalty2StopwatchState.toggleBy(matchStopwatchState)
                 }
             }
     }
@@ -106,5 +122,13 @@ class StopwatchViewModel(
     companion object {
         private const val TAG = "StopwatchViewModel"
         const val OFFENSE_COUNTDOWN_FROM_MS = Constants.OFFENSE_DURATION_SECONDS * 1_000L
+    }
+}
+
+fun StopwatchState.toggleBy(other: StopwatchState) {
+    if (running != other.running) {
+        if ((other.running && progressMs > 0) || !other.running) {
+            toggleRunning()
+        }
     }
 }

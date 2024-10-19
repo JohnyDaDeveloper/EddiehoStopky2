@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "3b2ddf4e2a392443a3ab94f9be4f0884",
+    "identityHash": "ad2ce325a2e7236cd95e688848e53709",
     "entities": [
       {
         "tableName": "settings",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `pauseAllWhenMatchIsPaused` INTEGER NOT NULL, `offenseCountdownControlledByMatch` INTEGER NOT NULL, `restartOffenseCountdownButtonAtLeft` INTEGER NOT NULL, `alertBeforeOffenseEndSeconds` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `pauseAllWhenMatchIsPaused` INTEGER NOT NULL, `offenseCountdownControlledByMatch` INTEGER NOT NULL, `switchButtons` INTEGER NOT NULL, `alertBeforeOffenseEndSeconds` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -27,8 +27,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "restartOffenseCountdownButtonAtLeft",
-            "columnName": "restartOffenseCountdownButtonAtLeft",
+            "fieldPath": "switchButtons",
+            "columnName": "switchButtons",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -45,11 +45,35 @@
             "id"
           ]
         }
+      },
+      {
+        "tableName": "migration_info",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `migratedToVersion` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "migratedToVersion",
+            "columnName": "migratedToVersion",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3b2ddf4e2a392443a3ab94f9be4f0884')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ad2ce325a2e7236cd95e688848e53709')"
     ]
   }
 }

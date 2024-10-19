@@ -3,16 +3,19 @@
     <string name="stopwatch_match">Zápas</string>
     <string name="stopwatch_offense">Útok</string>
     <string name="stopwatch_penalty">Trest %1$d</string>
+    <string name="stopwatch_match_reset_dialog_title">Restartovat zápas?</string>
+    <string name="stopwatch_match_reset_dialog_description">Včetně trestů</string>
 
     <string name="settings_title">Nastavení</string>
     <string name="settings_yes">Ano</string>
     <string name="settings_no">Ne</string>
-    <string name="settings_pause_all_when_match_is_paused">Zastavit vše při zastavení hry</string>
+    <string name="settings_pause_all_when_match_is_paused">Zastavit vše při zastavení zápasu</string>
     <string name="settings_offense_countdown_controlled_by_match">Časovač útoku řízen hrou</string>
-    <string name="settings_restart_offense_countdown_button_at_left">Tlačítko na restart útoku do leva</string>
+    <string name="settings_switch_buttons">Ovládání pravou rukou</string>
     <string name="settings_alert_before_offense_end_seconds">Upozornit na konec útkou předem</string>
 
     <string name="save">Uložit</string>
     <string name="cancel">Zrušit</string>
+    <string name="confirm">Potvrdit</string>
     <string name="loading">Načítání...</string>
 </resources>

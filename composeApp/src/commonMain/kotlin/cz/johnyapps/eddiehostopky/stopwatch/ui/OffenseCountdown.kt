@@ -28,24 +28,17 @@ fun OffenseCountdown(
         modifier = modifier.fillMaxWidth()
             .height(IntrinsicSize.Min)
     ) {
-        when {
-            switchButtons -> {
-                RestartButton(
-                    modifier = Modifier
-                        .fillMaxHeight(),
-                    onClick = { state.reset() }
-                )
-            }
-
-            showPlayPauseButton -> {
-                PlayPauseButton(
-                    modifier = Modifier
-                        .fillMaxHeight(),
-                    running = state.running,
-                    onClick = { state.toggleRunning() }
-                )
-            }
-        }
+        PlayPauseRestartButton(
+            modifier = Modifier.fillMaxHeight(),
+            state = when {
+                !switchButtons -> PlayPauseRestartButtonState.Restart
+                showPlayPauseButton -> PlayPauseRestartButtonState.PlayPause
+                else -> PlayPauseRestartButtonState.None
+            },
+            running = state.running,
+            onPlayPauseClick = { state.toggleRunning() },
+            onResetClick = { state.reset() }
+        )
 
         Column(
             modifier = Modifier.weight(1f)
@@ -64,23 +57,16 @@ fun OffenseCountdown(
             )
         }
 
-        when {
-            !switchButtons -> {
-                RestartButton(
-                    modifier = Modifier
-                        .fillMaxHeight(),
-                    onClick = { state.reset() }
-                )
-            }
-
-            showPlayPauseButton -> {
-                PlayPauseButton(
-                    modifier = Modifier
-                        .fillMaxHeight(),
-                    running = state.running,
-                    onClick = { state.toggleRunning() }
-                )
-            }
-        }
+        PlayPauseRestartButton(
+            modifier = Modifier.fillMaxHeight(),
+            state = when {
+                switchButtons -> PlayPauseRestartButtonState.Restart
+                showPlayPauseButton -> PlayPauseRestartButtonState.PlayPause
+                else -> PlayPauseRestartButtonState.None
+            },
+            running = state.running,
+            onPlayPauseClick = { state.toggleRunning() },
+            onResetClick = { state.reset() }
+        )
     }
 }

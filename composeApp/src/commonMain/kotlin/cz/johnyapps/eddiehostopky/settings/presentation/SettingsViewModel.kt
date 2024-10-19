@@ -53,17 +53,17 @@ class SettingsViewModel(
         }
     }
 
-    fun onRestartOffenseCountdownButtonAtLeftChange() {
+    fun onSwitchButtonsClick() {
         val currentState = _uiState.value
 
         if (currentState !is SettingsUiState.Ready) {
-            Logger.warn(TAG, "onRestartOffenseCountdownButtonAtLeftChange: Unexpected state $currentState")
+            Logger.warn(TAG, "onSwitchButtonsClick: Unexpected state $currentState")
             return
         }
 
         changeState {
             currentState.copy(
-                restartOffenseCountdownButtonAtLeft = !currentState.restartOffenseCountdownButtonAtLeft
+                switchButtons = !currentState.switchButtons
             )
         }
     }

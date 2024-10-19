@@ -9,7 +9,7 @@ data class SettingsEntity(
     @PrimaryKey val id: Long,
     val pauseAllWhenMatchIsPaused: Boolean,
     val offenseCountdownControlledByMatch: Boolean,
-    val restartOffenseCountdownButtonAtLeft: Boolean,
+    val switchButtons: Boolean,
     val alertBeforeOffenseEndSeconds: Int,
 )
 
@@ -17,7 +17,7 @@ fun SettingsEntity.toDomainModel(): Settings {
     return Settings(
         pauseAllWhenMatchIsPaused = pauseAllWhenMatchIsPaused,
         offenseCountdownControlledByMatch = offenseCountdownControlledByMatch,
-        restartOffenseCountdownButtonAtLeft = restartOffenseCountdownButtonAtLeft,
+        switchButtons = switchButtons,
         alertBeforeOffenseEndSeconds = alertBeforeOffenseEndSeconds
     )
 }
@@ -27,7 +27,7 @@ fun Settings.toEntity(): SettingsEntity {
         id = 0,
         pauseAllWhenMatchIsPaused = pauseAllWhenMatchIsPaused,
         offenseCountdownControlledByMatch = offenseCountdownControlledByMatch,
-        restartOffenseCountdownButtonAtLeft = restartOffenseCountdownButtonAtLeft,
+        switchButtons = switchButtons,
         alertBeforeOffenseEndSeconds = alertBeforeOffenseEndSeconds
     )
 }

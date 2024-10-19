@@ -70,6 +70,7 @@ private fun StopwatchScreenReadyContents(
         MatchStopwatch(
             state = uiState.matchStopwatchState,
             onMatchStopwatchReset = onResetMatchClick,
+            switchButtons = uiState.switchButtons,
         )
 
         Spacer(modifier = Modifier.weight(1f))
@@ -78,7 +79,7 @@ private fun StopwatchScreenReadyContents(
 
         OffenseCountdown(
             state = uiState.offenseCountdownState,
-            switchButtons = uiState.switchOffenseCountdownButtons,
+            switchButtons = uiState.switchButtons,
             showPlayPauseButton = uiState.showOffenseCountdownPlayPauseButton,
         )
 
@@ -86,14 +87,16 @@ private fun StopwatchScreenReadyContents(
 
         PenaltyStopwatch(
             state = uiState.penalty1StopwatchState,
-            number = 1
+            number = 1,
+            switchButtons = uiState.switchButtons,
         )
 
         HorizontalDivider()
 
         PenaltyStopwatch(
             state = uiState.penalty2StopwatchState,
-            number = 2
+            number = 2,
+            switchButtons = uiState.switchButtons,
         )
     }
 }

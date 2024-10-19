@@ -86,8 +86,19 @@ android {
         applicationId = "cz.johnyapps.eddiehostopky"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 10
+        versionName = "2.0"
+    }
+
+    signingConfigs {
+        val keysDir = rootDir
+
+        create("release") {
+            storeFile = file("$keysDir/key.jks")
+            storePassword = "PrdelJeFajnVěc"
+            keyAlias = "key0"
+            keyPassword = "PrdelJeFajnVěc"
+        }
     }
 
     packaging {
@@ -99,6 +110,7 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 

@@ -19,7 +19,7 @@ class LiveSettingsRepository(
 
     override suspend fun getSettings(): Settings {
         return dao.getSettings()?.toDomainModel()
-            ?: createDefaultSettings()
+            ?: Settings.createDefault()
     }
 
     override fun getSettingsFlow(): Flow<Settings> {
@@ -29,18 +29,9 @@ class LiveSettingsRepository(
                 dao.getSettingsFlow()
                     .map { entity ->
                         entity?.toDomainModel()
-                            ?: createDefaultSettings()
+                            ?: Settings.createDefault()
                     }
             )
         }
-    }
-
-    private fun createDefaultSettings(): Settings {
-        return Settings(
-            pauseAllWhenMatchIsPaused = true,
-            offenseCountdownControlledByMatch = true,
-            restartOffenseCountdownButtonAtLeft = true,
-            alertBeforeOffenseEndSeconds = 5,
-        )
     }
 }

@@ -1,9 +1,7 @@
 package cz.johnyapps.eddiehostopky.settings.ui
 
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -15,9 +13,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import cz.johnyapps.eddiehostopky.common.ui.Dialog
+import cz.johnyapps.eddiehostopky.common.ui.ConfirmCancelDialog
 import cz.johnyapps.eddiehostopky.theme.ui.AppTheme
-import cz.johnyapps.eddiehostopky.theme.ui.buttonColors
 import cz.johnyapps.eddiehostopky.theme.ui.textButtonColors
 import eddiehostopky.composeapp.generated.resources.Res
 import eddiehostopky.composeapp.generated.resources.cancel
@@ -67,39 +64,15 @@ private fun IntValueDialog(
 ) {
     var currentValue by remember { mutableIntStateOf(initialValue) }
 
-    Dialog(
-        title = {
-            Text(
-                modifier = Modifier.padding(AppTheme.spacing.normal),
-                text = title,
-                style = AppTheme.typography.large
-            )
+    ConfirmCancelDialog(
+        title = title,
+        confirmButtonText = stringResource(Res.string.save),
+        onConfirmButtonClick = {
+            onSaveValue(currentValue)
+            onDismissRequest()
         },
-        buttons = {
-            Row(
-                modifier = Modifier.padding(AppTheme.spacing.normal)
-            ) {
-                TextButton(
-                    onClick = onDismissRequest,
-                    colors = AppTheme.textButtonColors()
-                ) {
-                    Text(text = stringResource(Res.string.cancel))
-                }
-
-                Spacer(Modifier.weight(1f))
-
-                Button(
-                    onClick = {
-                        onSaveValue(currentValue)
-                        onDismissRequest()
-                    },
-                    colors = AppTheme.buttonColors(),
-                ) {
-                    Text(text = stringResource(Res.string.save))
-                }
-            }
-        },
-        onDismissRequest = onDismissRequest,
+        cancelButtonText = stringResource(Res.string.cancel),
+        onDismissRequest = onDismissRequest
     ) {
         IntValueDialogContent(
             value = currentValue,

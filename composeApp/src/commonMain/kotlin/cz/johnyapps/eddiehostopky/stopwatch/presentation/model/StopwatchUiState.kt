@@ -15,7 +15,7 @@ sealed interface StopwatchUiState {
         val offenseCountdownState: CountdownState,
         val penalty1StopwatchState: StopwatchState,
         val penalty2StopwatchState: StopwatchState,
-        val switchOffenseCountdownButtons: Boolean,
+        val switchButtons: Boolean,
         val showOffenseCountdownPlayPauseButton: Boolean,
     ) : StopwatchUiState
 
@@ -25,7 +25,7 @@ sealed interface StopwatchUiState {
         }
 
         fun firstReady(
-            switchOffenseCountdownButtons: Boolean,
+            switchButtons: Boolean,
             showOffenseCountdownPlayPauseButton: Boolean,
         ): Ready {
             return Ready(
@@ -33,7 +33,7 @@ sealed interface StopwatchUiState {
                 offenseCountdownState = LiveCountdownState(fromValueMs = StopwatchViewModel.OFFENSE_COUNTDOWN_FROM_MS),
                 penalty1StopwatchState = LiveStopwatchState(),
                 penalty2StopwatchState = LiveStopwatchState(),
-                switchOffenseCountdownButtons = switchOffenseCountdownButtons,
+                switchButtons = switchButtons,
                 showOffenseCountdownPlayPauseButton = showOffenseCountdownPlayPauseButton,
             )
         }

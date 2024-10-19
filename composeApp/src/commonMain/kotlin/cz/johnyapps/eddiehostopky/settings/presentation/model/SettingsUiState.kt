@@ -8,7 +8,7 @@ sealed interface SettingsUiState {
     data class Ready(
         val pauseAllWhenMatchIsPaused: Boolean,
         val offenseCountdownControlledByMatch: Boolean,
-        val restartOffenseCountdownButtonAtLeft: Boolean,
+        val switchButtons: Boolean,
         val alertBeforeOffenseEndSeconds: Int,
     ) : SettingsUiState
 
@@ -21,7 +21,7 @@ fun Settings.toSettingsUiState(): SettingsUiState {
     return SettingsUiState.Ready(
         pauseAllWhenMatchIsPaused = pauseAllWhenMatchIsPaused,
         offenseCountdownControlledByMatch = offenseCountdownControlledByMatch,
-        restartOffenseCountdownButtonAtLeft = restartOffenseCountdownButtonAtLeft,
+        switchButtons = switchButtons,
         alertBeforeOffenseEndSeconds = alertBeforeOffenseEndSeconds
     )
 }
@@ -30,7 +30,7 @@ fun SettingsUiState.Ready.toDomainModel(): Settings {
     return Settings(
         pauseAllWhenMatchIsPaused = pauseAllWhenMatchIsPaused,
         offenseCountdownControlledByMatch = offenseCountdownControlledByMatch,
-        restartOffenseCountdownButtonAtLeft = restartOffenseCountdownButtonAtLeft,
+        switchButtons = switchButtons,
         alertBeforeOffenseEndSeconds = alertBeforeOffenseEndSeconds
     )
 }

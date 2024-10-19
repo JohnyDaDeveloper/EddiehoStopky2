@@ -60,14 +60,6 @@ class LiveStopwatchState(
     }
 }
 
-fun StopwatchState.toggleBy(other: StopwatchState) {
-    if (running != other.running) {
-        if ((other.running && progressMs > 0) || !other.running) {
-            toggleRunning()
-        }
-    }
-}
-
 fun Long.toStopwatchText(): String {
     val minutes = this / 60_000
     val seconds = this / 1_000 % 60

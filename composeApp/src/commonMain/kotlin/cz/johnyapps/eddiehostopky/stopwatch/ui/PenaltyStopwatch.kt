@@ -20,6 +20,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun PenaltyStopwatch(
     number: Int,
+    switchButtons: Boolean,
     modifier: Modifier = Modifier,
     state: StopwatchState = rememberStopwatchState()
 ) {
@@ -27,11 +28,15 @@ fun PenaltyStopwatch(
         modifier = modifier.fillMaxWidth()
             .height(IntrinsicSize.Min)
     ) {
-        PlayPauseButton(
-            modifier = Modifier
-                .fillMaxHeight(),
+        PlayPauseRestartButton(
+            modifier = Modifier.fillMaxHeight(),
+            state = when {
+                switchButtons -> PlayPauseRestartButtonState.Restart
+                else -> PlayPauseRestartButtonState.PlayPause
+            },
             running = state.running,
-            onClick = state::toggleRunning,
+            onPlayPauseClick = { state.toggleRunning() },
+            onResetClick = { state.reset() }
         )
 
         Column(
@@ -51,10 +56,15 @@ fun PenaltyStopwatch(
             )
         }
 
-        RestartButton(
-            modifier = Modifier
-                .fillMaxHeight(),
-            onClick = state::reset,
+        PlayPauseRestartButton(
+            modifier = Modifier.fillMaxHeight(),
+            state = when {
+                !switchButtons -> PlayPauseRestartButtonState.Restart
+                else -> PlayPauseRestartButtonState.PlayPause
+            },
+            running = state.running,
+            onPlayPauseClick = { state.toggleRunning() },
+            onResetClick = { state.reset() }
         )
     }
 }
