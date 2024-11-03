@@ -64,6 +64,10 @@ kotlin {
             implementation(libs.room.runtime)
             implementation(libs.sqlite.driver)
         }
+
+        iosMain.dependencies {
+            implementation(libs.nsexception)
+        }
     }
 
     dependencies {

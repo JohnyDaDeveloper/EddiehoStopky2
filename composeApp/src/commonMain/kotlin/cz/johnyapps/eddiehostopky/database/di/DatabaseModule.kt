@@ -8,6 +8,7 @@ import kotlinx.coroutines.IO
 import org.koin.dsl.module
 
 val databaseModule = module {
+    includes(databasePlatformModule)
     single<AppDatabase> {
         val builder = get<DatabaseBuilderFactory>().createDatabaseBuilder()
         builder

@@ -16,8 +16,6 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val settingsModule = module {
-    includes(settingsPlatformModule)
-
     factoryOf(::LiveGetSettingsUseCase) bind GetSettingsUseCase::class
     factoryOf(::LiveSaveSettingsUseCase) bind SaveSettingsUseCase::class
     factoryOf(::LiveGetSettingsFlowUseCase) bind GetSettingsFlowUseCase::class

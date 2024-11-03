@@ -15,6 +15,7 @@ kotlinx-datetime = "0.6.1"
 room = "2.7.0-alpha09"
 ksp = "2.0.20-1.0.24"
 sqlite = "2.5.0-alpha10"
+nsexception = "0.1.17"
 
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidx-activity-compose" }
@@ -30,6 +31,7 @@ kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime",
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 sqlite-driver = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "sqlite" }
+nsexception = { group = "com.rickclephas.kmp", name = "nsexception-kt-core", version.ref = "nsexception" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -24,7 +24,7 @@ struct iOSApp: App {
             hapticEngine = nil
         }
         
-        KoinHelperKt.doInitKoin(
+        InitKmpKt.doInitKmp(
             createVibrationManager: { IosVibrationManager(hapticEngine: hapticEngine) },
             createLogWriter: { IosLogWriter() }
         )
