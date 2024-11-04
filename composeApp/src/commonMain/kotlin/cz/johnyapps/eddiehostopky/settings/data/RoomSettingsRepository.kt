@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
-class LiveSettingsRepository(
+class RoomSettingsRepository(
     private val dao: SettingsDao,
 ) : SettingsRepository {
 

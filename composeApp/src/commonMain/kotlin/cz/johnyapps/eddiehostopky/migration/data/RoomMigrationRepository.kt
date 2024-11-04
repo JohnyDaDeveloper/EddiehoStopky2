@@ -3,7 +3,7 @@ package cz.johnyapps.eddiehostopky.migration.data
 import cz.johnyapps.eddiehostopky.migration.data.model.MigrationInfoEntity
 import cz.johnyapps.eddiehostopky.migration.domain.MigrationRepository
 
-class LiveMigrationRepository(
+class RoomMigrationRepository(
     private val migrationDao: MigrationDao,
 ) : MigrationRepository {
 

@@ -1,7 +1,7 @@
 package cz.johnyapps.eddiehostopky.settings.di
 
 import cz.johnyapps.eddiehostopky.database.system.AppDatabase
-import cz.johnyapps.eddiehostopky.settings.data.LiveSettingsRepository
+import cz.johnyapps.eddiehostopky.settings.data.RoomSettingsRepository
 import cz.johnyapps.eddiehostopky.settings.data.SettingsDao
 import cz.johnyapps.eddiehostopky.settings.domain.GetSettingsFlowUseCase
 import cz.johnyapps.eddiehostopky.settings.domain.GetSettingsUseCase
@@ -20,7 +20,7 @@ val settingsModule = module {
     factoryOf(::LiveSaveSettingsUseCase) bind SaveSettingsUseCase::class
     factoryOf(::LiveGetSettingsFlowUseCase) bind GetSettingsFlowUseCase::class
 
-    singleOf(::LiveSettingsRepository) bind SettingsRepository::class
+    singleOf(::RoomSettingsRepository) bind SettingsRepository::class
     factory<SettingsDao> {
         val database = get<AppDatabase>()
         database.settingsDao()

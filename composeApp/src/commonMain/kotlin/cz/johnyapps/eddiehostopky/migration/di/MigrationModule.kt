@@ -1,8 +1,8 @@
 package cz.johnyapps.eddiehostopky.migration.di
 
 import cz.johnyapps.eddiehostopky.database.system.AppDatabase
-import cz.johnyapps.eddiehostopky.migration.data.LiveMigrationRepository
 import cz.johnyapps.eddiehostopky.migration.data.MigrationDao
+import cz.johnyapps.eddiehostopky.migration.data.RoomMigrationRepository
 import cz.johnyapps.eddiehostopky.migration.domain.ExecuteMigrationUseCase
 import cz.johnyapps.eddiehostopky.migration.domain.LiveExecuteMigrationUseCase
 import cz.johnyapps.eddiehostopky.migration.domain.MigrationRepository
@@ -19,7 +19,7 @@ val migrationModule = module {
         database.migrationDao()
     }
 
-    singleOf(::LiveMigrationRepository) bind MigrationRepository::class
+    singleOf(::RoomMigrationRepository) bind MigrationRepository::class
 
     includes(migrationPlatformModule)
 }
