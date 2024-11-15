@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.text.TextStyle
 import cz.johnyapps.eddiehostopky.stopwatch.presentation.LiveStopwatchState
@@ -26,16 +27,26 @@ fun Stopwatch(
         modifier = modifier.padding(AppTheme.spacing.normal),
         contentAlignment = Alignment.Center,
     ) {
-        Text(
-            modifier = Modifier.drawWithCache {
-                onDrawWithContent {
-                    drawContent()
-                    state.invalidate()
-                }
-            },
-            text = state.text,
-            style = textStyle
-        )
+        Box(
+            contentAlignment = Alignment.CenterStart,
+        ) {
+            Text(
+                modifier = Modifier.drawWithCache {
+                    onDrawWithContent {
+                        drawContent()
+                        state.invalidate()
+                    }
+                },
+                text = state.text,
+                style = textStyle
+            )
+
+            Text(
+                modifier = Modifier.alpha(0f),
+                text = "00:00:00",
+                style = textStyle,
+            )
+        }
     }
 }
 
