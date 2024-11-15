@@ -12,7 +12,7 @@
     <string name="settings_pause_all_when_match_is_paused">Zastavit vše při zastavení zápasu</string>
     <string name="settings_offense_countdown_controlled_by_match">Časovač útoku řízen hrou</string>
     <string name="settings_switch_buttons">Ovládání pravou rukou</string>
-    <string name="settings_alert_before_offense_end_seconds">Upozornit na konec útkou předem</string>
+    <string name="settings_alert_before_offense_end_seconds">Upozornit na konec útoku předem</string>
 
     <string name="save">Uložit</string>
     <string name="cancel">Zrušit</string>
